@@ -1,0 +1,567 @@
+{
+	"info": {
+		"_postman_id": "a6727867-9fac-4a3d-9525-51a74a41f481",
+		"name": "Unit4",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "unit4_Company",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Test 1 GET Company details\", () => {\r",
+							"    //parse the response json and test three properties\r",
+							"    const responseJson = pm.response.json();\r",
+							"    //Country code, dimV2Type,municipal,exchangeGainAccount varified.\r",
+							"    pm.expect(responseJson.countryCode).to.eql('RO');\r",
+							"    pm.expect(responseJson.dimV2Type).to.eq('3');\r",
+							"    pm.expect(responseJson.municipal).to.eq(\"BUCHAR\");\r",
+							"    pm.expect(responseJson.accounting.exchangeGainAccount).to.eq(\"765\");\r",
+							"    });\r",
+							"\r",
+							"    pm.test(\"Test 2 GET Company details\", () => {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    // verified taxOfficeReference,vatRegistrationNumber from response\r",
+							"    pm.expect(responseJson.taxOfficeReference).to.eq(\"SC EXPLEO ROMANIA SR\");\r",
+							"    pm.expect(responseJson.vatRegistrationNumber).to.eq(\"RO5932005\");\r",
+							"    // pm.response.to.have.status(\"OK\"); need to put comment.\r",
+							"    \r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var expectedJsonBody =\r",
+							"{\r",
+							"  \"data\": {\r",
+							"    \"countryCode\": \"RO\",\r",
+							"    \"dimV2Type\": \"3\",\r",
+							"    \"municipal\":\"BUCHAR\",\r",
+							"    \"companyId\":\"RO01\"\r",
+							"      }\r",
+							"}\r",
+							"pm.environment.set(\"address\", JSON.stringify(expectedJsonBody));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "Unit4@expleo1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "EXOWS1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"companyId\": \"string\",\r\n  \"companyName\": \"string\",\r\n  \"companyRegistrationNumber\": \"string\",\r\n  \"country\": \"string\",\r\n  \"countryCode\": \"string\",\r\n  \"currentAccountingPeriod\": 0,\r\n  \"dimV2Type\": \"string\",\r\n  \"dimV3Type\": \"string\",\r\n  \"employerId\": \"string\",\r\n  \"languageCode\": \"string\",\r\n  \"maximumTransactionDifference\": 0,\r\n  \"maximumPaymentDifference\": 0,\r\n  \"municipal\": \"string\",\r\n  \"newCompanyId\": \"string\",\r\n  \"overrun\": 0,\r\n  \"payReference\": \"string\",\r\n  \"numberOfPeriods\": 0,\r\n  \"remindReference\": \"string\",\r\n  \"systemSetupCode\": \"string\",\r\n  \"taxOfficeName\": \"string\",\r\n  \"taxOfficeReference\": \"string\",\r\n  \"taxSystem\": \"string\",\r\n  \"vatRegistrationNumber\": \"string\",\r\n  \"multiCompanyInformation\": {\r\n    \"currencyCompanyId\": \"string\",\r\n    \"headOffice\": \"string\",\r\n    \"legalActingCompanyId\": \"string\",\r\n    \"remittanceCompanyId\": \"string\",\r\n    \"notificationMessages\": {}\r\n  },\r\n  \"accounting\": {\r\n    \"exchangeGainAccount\": \"string\",\r\n    \"exchangeLossAccount\": \"string\",\r\n    \"costCapitalisation\": \"string\",\r\n    \"incomeCapitalisationAccount\": \"string\",\r\n    \"reversedPaymentAccount\": \"string\",\r\n    \"undeclaredVatAccount\": \"string\",\r\n    \"amount3BalanceAccount\": \"string\",\r\n    \"amount4BalanceAccount\": \"string\",\r\n    \"balancingAttributeAccount\": \"string\",\r\n    \"invoiceFee\": \"string\",\r\n    \"differenceAccount\": \"string\",\r\n    \"paymentDifferenceGain\": \"string\",\r\n    \"paymentDifferenceLoss\": \"string\",\r\n    \"notificationMessages\": {}\r\n  },\r\n  \"currencyInformation\": {\r\n    \"balanceAttribute\": \"string\",\r\n    \"currencySplit\": true,\r\n    \"currencyCode\": \"string\",\r\n    \"triangulationCurrency\": \"string\",\r\n    \"amount3Currency\": \"string\",\r\n    \"amount4Currency\": \"string\",\r\n    \"currencyType\": \"string\",\r\n    \"amount3DifferenceAccount\": \"string\",\r\n    \"amount4DifferenceAccount\": \"string\",\r\n    \"amount3MaxTransactionDifference\": 0,\r\n    \"amount4MaxTransactionDifference\": 0,\r\n    \"notificationMessages\": {}\r\n  },\r\n  \"vatInformation\": {\r\n    \"undeclVatForApNotes\": \"string\",\r\n    \"undeclVatForArNotes\": \"string\",\r\n    \"undeclVatForAp\": \"string\",\r\n    \"undeclVatForAr\": \"string\",\r\n    \"reverseVatWhenDiscountAp\": true,\r\n    \"reverseVatWhenDiscountAr\": true,\r\n    \"notificationMessages\": {}\r\n  },\r\n  \"lastUpdated\": {\r\n    \"updatedAt\": \"2020-12-07T14:09:40.974Z\",\r\n    \"updatedBy\": \"string\",\r\n    \"notificationMessages\": {}\r\n  },\r\n  \"contactPoints\": [\r\n    {\r\n      \"additionalContactInfo\": {\r\n        \"contactPerson\": \"string\",\r\n        \"contactPosition\": \"string\",\r\n        \"eMail\": \"string\",\r\n        \"eMailCc\": \"string\",\r\n        \"gtin\": \"string\",\r\n        \"url\": \"string\",\r\n        \"notificationMessages\": {}\r\n      },\r\n      \"address\": {\r\n        \"countryCode\": \"string\",\r\n        \"place\": \"string\",\r\n        \"postcode\": \"string\",\r\n        \"province\": \"string\",\r\n        \"streetAddress\": \"string\",\r\n        \"notificationMessages\": {}\r\n      },\r\n      \"contactPointType\": \"string\",\r\n      \"lastUpdated\": {\r\n        \"updatedAt\": \"2020-12-07T14:09:40.974Z\",\r\n        \"updatedBy\": \"string\",\r\n        \"notificationMessages\": {}\r\n      },\r\n      \"phoneNumbers\": {\r\n        \"telephone1\": \"string\",\r\n        \"telephone2\": \"string\",\r\n        \"telephone3\": \"string\",\r\n        \"telephone4\": \"string\",\r\n        \"telephone5\": \"string\",\r\n        \"telephone6\": \"string\",\r\n        \"telephone7\": \"string\",\r\n        \"notificationMessages\": {}\r\n      },\r\n      \"sortOrder\": 0,\r\n      \"notificationMessages\": {}\r\n    }\r\n  ],\r\n  \"customFieldGroups\": {},\r\n  \"relatedValues\": [\r\n    {\r\n      \"unitValue\": 0,\r\n      \"relationGroup\": \"string\",\r\n      \"relationId\": \"string\",\r\n      \"relationName\": \"string\",\r\n      \"relatedValue\": \"string\",\r\n      \"percentage\": 0,\r\n      \"dateFrom\": \"2020-12-07T14:09:40.975Z\",\r\n      \"dateTo\": \"2020-12-07T14:09:40.975Z\",\r\n      \"notificationMessages\": {}\r\n    }\r\n  ],\r\n  \"notificationMessages\": {}\r\n}",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url_company}}",
+					"host": [
+						"{{url_company}}"
+					]
+				},
+				"description": "supplier get"
+			},
+			"response": []
+		},
+		{
+			"name": "GET Object Company X",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// User is not authorised."
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "EXOWS1",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "Unit4@expleo1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\r\n  {\r\n    \"companyId\": \"string\",\r\n    \"companyName\": \"string\",\r\n    \"companyRegistrationNumber\": \"string\",\r\n    \"country\": \"string\",\r\n    \"countryCode\": \"string\",\r\n    \"currentAccountingPeriod\": 0,\r\n    \"employerId\": \"string\",\r\n    \"languageCode\": \"string\",\r\n    \"maximumPaymentDifference\": 0,\r\n    \"maximumTransactionDifference\": 0,\r\n    \"municipal\": \"string\",\r\n    \"numberOfPeriods\": 0,\r\n    \"overrun\": 0,\r\n    \"payReference\": \"string\",\r\n    \"remindReference\": \"string\",\r\n    \"systemSetupCode\": \"string\",\r\n    \"taxOfficeName\": \"string\",\r\n    \"taxOfficeReference\": \"string\",\r\n    \"taxSystem\": \"string\",\r\n    \"vatRegistrationNumber\": \"string\",\r\n    \"multiCompanyInformation\": {\r\n      \"currencyCompanyId\": \"string\",\r\n      \"headOffice\": \"string\",\r\n      \"legalActingCompanyId\": \"string\",\r\n      \"remittanceCompanyId\": \"string\"\r\n    },\r\n    \"accounting\": {\r\n      \"amount3BalanceAccount\": \"string\",\r\n      \"amount4BalanceAccount\": \"string\",\r\n      \"balancingAttributeAccount\": \"string\",\r\n      \"costCapitalisation\": \"string\",\r\n      \"differenceAccount\": \"string\",\r\n      \"exchangeGainAccount\": \"string\",\r\n      \"exchangeLossAccount\": \"string\",\r\n      \"incomeCapitalisationAccount\": \"string\",\r\n      \"invoiceFee\": \"string\",\r\n      \"paymentDifferenceGain\": \"string\",\r\n      \"paymentDifferenceLoss\": \"string\",\r\n      \"reversedPaymentAccount\": \"string\",\r\n      \"undeclaredVatAccount\": \"string\"\r\n    },\r\n    \"currencyInformation\": {\r\n      \"amount3Currency\": \"string\",\r\n      \"amount3DifferenceAccount\": \"string\",\r\n      \"amount3MaxTransactionDifference\": 0,\r\n      \"amount4Currency\": \"string\",\r\n      \"amount4DifferenceAccount\": \"string\",\r\n      \"amount4MaxTransactionDifference\": 0,\r\n      \"balanceAttribute\": \"string\",\r\n      \"currencyCode\": \"string\",\r\n      \"currencySplit\": true,\r\n      \"currencyType\": \"string\",\r\n      \"triangulationCurrency\": \"string\"\r\n    },\r\n    \"vatInformation\": {\r\n      \"reverseVatWhenDiscountAp\": true,\r\n      \"reverseVatWhenDiscountAr\": true,\r\n      \"undeclVatForAp\": \"string\",\r\n      \"undeclVatForApNotes\": \"string\",\r\n      \"undeclVatForAr\": \"string\",\r\n      \"undeclVatForArNotes\": \"string\"\r\n    },\r\n    \"contactPoints\": [\r\n      {\r\n        \"contactPointType\": \"string\",\r\n        \"address\": {\r\n          \"countryCode\": \"string\",\r\n          \"place\": \"string\",\r\n          \"postcode\": \"string\",\r\n          \"province\": \"string\",\r\n          \"streetAddress\": \"string\"\r\n        },\r\n        \"phoneNumbers\": {\r\n          \"telephone1\": \"string\",\r\n          \"telephone2\": \"string\",\r\n          \"telephone3\": \"string\",\r\n          \"telephone4\": \"string\",\r\n          \"telephone5\": \"string\",\r\n          \"telephone6\": \"string\",\r\n          \"telephone7\": \"string\"\r\n        },\r\n        \"additionalContactInfo\": {\r\n          \"contactPerson\": \"string\",\r\n          \"contactPosition\": \"string\",\r\n          \"eMail\": \"string\",\r\n          \"eMailCc\": \"string\",\r\n          \"gtin\": \"string\",\r\n          \"url\": \"string\"\r\n        },\r\n        \"lastUpdated\": {\r\n          \"updatedAt\": \"2020-12-07T14:09:41.051Z\",\r\n          \"updatedBy\": \"string\"\r\n        }\r\n      }\r\n    ],\r\n    \"lastUpdated\": {\r\n      \"updatedAt\": \"2020-12-07T14:09:41.051Z\",\r\n      \"updatedBy\": \"string\"\r\n    }\r\n  }\r\n\r\n\r\n"
+				},
+				"url": {
+					"raw": "https://ubw.unit4cloud.com/fr_exo_prod_webapi/v1/objects/companies?companyId=RO01\n",
+					"protocol": "https",
+					"host": [
+						"ubw",
+						"unit4cloud",
+						"com"
+					],
+					"path": [
+						"fr_exo_prod_webapi",
+						"v1",
+						"objects",
+						"companies"
+					],
+					"query": [
+						{
+							"key": "companyId",
+							"value": "RO01\n"
+						}
+					]
+				},
+				"description": "GET object company"
+			},
+			"response": []
+		},
+		{
+			"name": "Attribute_value",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json();\r",
+							"var attributeId = data[0].attributeId; //data is array\r",
+							"var attributeName1=data[1].attributeName;\r",
+							"var attributeValue1 = data[2].attributeValue;\r",
+							"\r",
+							"// attributeId,attribute value verified in response\r",
+							"pm.test(\"Test 1 check attributeValue\", function(){\r",
+							"    pm.expect(attributeId).to.be.eql(\"C47\");\r",
+							"    pm.expect(attributeValue1).to.be.eql(\"GESTION\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "EXOWS1",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "Unit4@expleo1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  {\r\n    \"attributeId\": \"string\",\r\n    \"attributeName\": \"string\",\r\n    \"attributeValue\": \"string\",\r\n    \"companyId\": \"string\",\r\n    \"customValue\": 0,\r\n    \"description\": \"string\",\r\n    \"owner\": \"string\",\r\n    \"ownerAttributeId\": \"string\",\r\n    \"ownerAttributeName\": \"string\",\r\n    \"periodFrom\": 0,\r\n    \"periodTo\": 0,\r\n    \"status\": \"string\",\r\n    \"lastUpdated\": {\r\n      \"updatedAt\": \"2021-01-04T07:18:24.964Z\",\r\n      \"updatedBy\": \"string\"\r\n    }\r\n  }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url_attributevalue}}",
+					"host": [
+						"{{url_attributevalue}}"
+					]
+				},
+				"description": "attribute value"
+			},
+			"response": []
+		},
+		{
+			"name": "Attributes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// All response in Array\r",
+							"var data = pm.response.json();\r",
+							"var attributeId = data[0].attributeId; //data is array\r",
+							"var attributeName1=data[1].attributeName;\r",
+							"var attributeValue1 = data[2].attributeValue;\r",
+							"var companyId1 = data[2].companyId;\r",
+							"\r",
+							"pm.test(\"Test 1 GET Attributes\", function(){\r",
+							"    // Attribute id, Attribute name,Company id verified from response.\r",
+							"    pm.expect(attributeId).to.be.eql(\"ZB05\");\r",
+							"    pm.expect(attributeName1).to.be.equal(\"BS5\");\r",
+							"    pm.expect(companyId1).to.be.eql(\"ECM\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "EXOWS1",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "Unit4@expleo1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"attributeId\": \"string\",\r\n    \"attributeName\": \"string\",\r\n    \"companyId\": \"string\",\r\n    \"dataLength\": 0,\r\n    \"dataType\": \"string\",\r\n    \"description\": \"string\",\r\n    \"dimensionPosition\": \"string\",\r\n    \"hasDataControl\": true,\r\n    \"hasDateRangeOnRelatedValues\": true,\r\n    \"hasPeriodRangeControl\": true,\r\n    \"isCachable\": true,\r\n    \"isEnabledForLinkingContactPoints\": true,\r\n    \"isEnabledForWorkflow\": true,\r\n    \"isFormMasterFile\": true,\r\n    \"isMasterFileAttribute\": true,\r\n    \"isObject\": true,\r\n    \"ownerAttributeId\": \"string\",\r\n    \"ownerAttributeName\": \"string\",\r\n    \"status\": \"string\",\r\n    \"typeOfMaintenance\": \"string\",\r\n    \"typeOfUnit\": \"string\",\r\n    \"updatedAt\": \"2020-12-11T14:04:15.840Z\",\r\n    \"updatedBy\": \"string\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "{{url_attribute}}",
+					"host": [
+						"{{url_attribute}}"
+					]
+				},
+				"description": "Attributes"
+			},
+			"response": []
+		},
+		{
+			"name": "Currency Codes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json();\r",
+							"var companyId = data[0].companyId; //data is array\r",
+							"var currencyCodenew=data[0].currencyCode;\r",
+							"var companyIdnew = 'ECM';\r",
+							"var currencyUnit=data[0].currencyUnit;\r",
+							"\r",
+							" pm.test(\"Test 1 GET currency codes details\", function(){\r",
+							"     //verify companyid and currency code,currencyUnit\r",
+							"    pm.expect(companyIdnew).to.be.eql(\"ECM\");\r",
+							"    pm.expect(currencyCodenew).to.eql(\"GBP\");\r",
+							"    pm.expect(currencyUnit).to.eql(1);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.environment.set(\"URL\", \"https://ubw-preview.unit4cloud.com/fr_exo_prev_webapi/v1/objects/currency-codes\");\r",
+							"pm.environment.get(\"URL\");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "EXOWS1",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "Unit4@expleo1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  {\r\n    \"bank\": \"string\",\r\n    \"company\": \"string\",\r\n    \"currency\": \"string\",\r\n    \"currencyUnit\": 0,\r\n    \"description\": \"string\",\r\n    \"flag\": true,\r\n    \"updated\": \"2021-01-04T07:39:22.697Z\",\r\n    \"limit\": 0,\r\n    \"numberOfDecimals\": 0,\r\n    \"sequenceNumber\": 0,\r\n    \"updatedBy\": \"string\",\r\n    \"notificationMessages\": {}\r\n  }\r\n]"
+				},
+				"url": {
+					"raw": "{{url_pp}}",
+					"host": [
+						"{{url_pp}}"
+					]
+				},
+				"description": "Currency Codes"
+			},
+			"response": []
+		},
+		{
+			"name": "Currency code",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Test 1 GET GBP currency details\", () => {\r",
+							"    //parse the response json and test three properties\r",
+							"    const responseJson = pm.response.json();\r",
+							"    //Country code, dimV2Type,municipal,exchangeGainAccount varified.\r",
+							"    pm.expect(responseJson.currency).to.eql('GBP');\r",
+							"    pm.expect(responseJson.limit).to.eq(0.0);\r",
+							"    pm.expect(responseJson.description).to.eq(\"Sterling Pound (GB)\");\r",
+							"    //pm.expect(responseJson.accounting.exchangeGainAccount).to.eq(\"765\");\r",
+							"    });\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "EXOWS1",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "Unit4@expleo1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"bank\": \"string\",\r\n  \"company\": \"string\",\r\n  \"currency\": \"string\",\r\n  \"currencyUnit\": 0,\r\n  \"description\": \"string\",\r\n  \"flag\": true,\r\n  \"updated\": \"2020-12-11T14:04:15.939Z\",\r\n  \"limit\": 0,\r\n  \"numberOfDecimals\": 0,\r\n  \"sequenceNumber\": 0,\r\n  \"updatedBy\": \"string\",\r\n  \"notificationMessages\": {}\r\n}"
+				},
+				"url": {
+					"raw": "https://ubw-preview.unit4cloud.com/fr_exo_prev_webapi/v1/currency-codes/GBP",
+					"protocol": "https",
+					"host": [
+						"ubw-preview",
+						"unit4cloud",
+						"com"
+					],
+					"path": [
+						"fr_exo_prev_webapi",
+						"v1",
+						"currency-codes",
+						"GBP"
+					]
+				},
+				"description": "Currency code"
+			},
+			"response": []
+		},
+		{
+			"name": "POST currency code",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "EXOWS1",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "Unit4@expleo1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"bank\": \"string\",\r\n  \"company\": \"string\",\r\n  \"currency\": \"string\",\r\n  \"currencyUnit\": 0,\r\n  \"description\": \"string\",\r\n  \"flag\": true,\r\n  \"updated\": \"2020-12-11T14:04:15.933Z\",\r\n  \"limit\": 0,\r\n  \"numberOfDecimals\": 0,\r\n  \"sequenceNumber\": 0,\r\n  \"updatedBy\": \"string\",\r\n  \"notificationMessages\": {}\r\n}"
+				},
+				"url": {
+					"raw": "https://ubw-preview.unit4cloud.com/fr_exo_prev_webapi/v1/currency-codes",
+					"protocol": "https",
+					"host": [
+						"ubw-preview",
+						"unit4cloud",
+						"com"
+					],
+					"path": [
+						"fr_exo_prev_webapi",
+						"v1",
+						"currency-codes"
+					]
+				},
+				"description": "adding currency code."
+			},
+			"response": []
+		},
+		{
+			"name": "Relations",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json();\r",
+							"var attributeId = data[0].attributeId; //data is array\r",
+							"var attributeName=data[0].attributeName;\r",
+							"var companyId=data[0].companyId;\r",
+							"var attributeName1= data[1].attributeName;\r",
+							"\r",
+							" pm.test(\"TC1 get Realtion details from response\", function(){\r",
+							"     //Get verify attributeid, attributename,companyid from response\r",
+							"    pm.expect(attributeId).to.be.eql(\"D0\");\r",
+							"    pm.expect(attributeName).to.eql(\"PRODUCT\");\r",
+							"    pm.expect(companyId).to.eql(\"ECM\");\r",
+							" }\r",
+							"    );\r",
+							"\r",
+							"pm.test(\"TC2 get Realtion details from second array response\", function(){\r",
+							"   \r",
+							"    pm.expect(companyId).to.eql(\"ECM\");\r",
+							"    pm.expect(attributeName1).to.eql(\"PROJECT\");\r",
+							" }\r",
+							");"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "EXOWS1",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "Unit4@expleo1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  {\r\n    \"attributeId\": \"string\",\r\n    \"attributeName\": \"string\",\r\n    \"canHaveDuplicate\": true,\r\n    \"companyId\": \"string\",\r\n    \"enableDate\": true,\r\n    \"enabledFixedPd\": true,\r\n    \"enabledGlAnalysis\": true,\r\n    \"enabledRate\": true,\r\n    \"enabledReporting\": true,\r\n    \"enabledResource\": true,\r\n    \"fixedFixedPd\": true,\r\n    \"fixedGlAnalysis\": true,\r\n    \"fixedRate\": true,\r\n    \"fixedReporting\": true,\r\n    \"flag\": \"string\",\r\n    \"locked\": true,\r\n    \"module\": \"string\",\r\n    \"noDateCheck\": true,\r\n    \"percentwiseDistributionAllowed\": true,\r\n    \"periodType\": \"string\",\r\n    \"position\": true,\r\n    \"relatedAttributeId\": \"string\",\r\n    \"relatedAttributeName\": \"string\",\r\n    \"relationGroup\": \"string\",\r\n    \"required\": \"string\",\r\n    \"sortOrder\": 0,\r\n    \"typeOfMaintenance\": \"string\",\r\n    \"typeOfUnit\": \"string\",\r\n    \"updatedAt\": \"2020-12-11T14:04:18.905Z\",\r\n    \"updatedBy\": \"string\",\r\n    \"visibleOfficeHs\": true\r\n  }\r\n]\r\n\r\n"
+				},
+				"url": {
+					"raw": "{{url_relations}}",
+					"host": [
+						"{{url_relations}}"
+					]
+				},
+				"description": "Relations get request."
+			},
+			"response": []
+		},
+		{
+			"name": "Requisition-inprogress",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "EXOWS1",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "Unit4@expleo1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"accountable\": \"string\",\r\n  \"acknowledgementDate\": \"2020-12-22T10:26:02.390Z\",\r\n  \"acknowledgementStatus\": \"string\",\r\n  \"addressType\": \"string\",\r\n  \"amendno\": 0,\r\n  \"bflag\": 0,\r\n  \"buyerElectronicId\": \"string\",\r\n  \"buyerElectronicIdQa\": \"string\",\r\n  \"companyId\": \"string\",\r\n  \"companyReference\": \"string\",\r\n  \"confirmationDate\": \"2020-12-22T10:26:02.390Z\",\r\n  \"contractId\": \"string\",\r\n  \"currencyCode\": \"string\",\r\n  \"debtCollectionCode\": \"string\",\r\n  \"discountCode\": \"string\",\r\n  \"electronicId\": \"string\",\r\n  \"electronicQa\": \"string\",\r\n  \"externaInvoiceReference\": \"string\",\r\n  \"externalOrderId\": \"string\",\r\n  \"externalReference\": \"string\",\r\n  \"followUp\": \"2020-12-22T10:26:02.390Z\",\r\n  \"footerText\": \"string\",\r\n  \"freeText1\": \"string\",\r\n  \"freeText2\": \"string\",\r\n  \"freeText3\": \"string\",\r\n  \"freeText4\": \"string\",\r\n  \"hasBeenPrinted\": true,\r\n  \"hasFixedCurrency\": true,\r\n  \"headerDimension1\": \"string\",\r\n  \"headerDimension2\": \"string\",\r\n  \"headerDimension3\": \"string\",\r\n  \"headerDimension4\": \"string\",\r\n  \"headerDimension5\": \"string\",\r\n  \"headerDimension6\": \"string\",\r\n  \"headerDimension7\": \"string\",\r\n  \"headerText\": \"string\",\r\n  \"invoiceControl\": 0,\r\n  \"invoiceRecipient\": \"string\",\r\n  \"isBackToBackOrderUsed\": true,\r\n  \"isAmountDeliveredControlledOnInvoice\": true,\r\n  \"isInvoiceControlDisabled\": true,\r\n  \"isOrderedAmountControlledOnInvoice\": true,\r\n  \"isQuantityDeliveredControlledOnInvoice\": true,\r\n  \"languageCode\": \"string\",\r\n  \"lastUpdated\": {\r\n    \"updatedAt\": \"2020-12-22T10:26:02.390Z\",\r\n    \"updatedBy\": \"string\",\r\n    \"notificationMessages\": {}\r\n  },\r\n  \"leadTimeExcludeNonWorkingDays\": true,\r\n  \"ledgerType\": \"string\",\r\n  \"lineDimension1\": \"string\",\r\n  \"lineDimension2\": \"string\",\r\n  \"lineDimension3\": \"string\",\r\n  \"lineDimension4\": \"string\",\r\n  \"lineDimension5\": \"string\",\r\n  \"lineDimension6\": \"string\",\r\n  \"lineDimension7\": \"string\",\r\n  \"mainLedgerType\": \"string\",\r\n  \"orderAccountingTemplate\": \"string\",\r\n  \"orderDate\": \"2020-12-22T10:26:02.390Z\",\r\n  \"orderDeadline\": 0,\r\n  \"orderDiscount\": 0,\r\n  \"orderDiscountPercent\": 0,\r\n  \"orderExchangeRate\": 0,\r\n  \"orderLeadTime\": 0,\r\n  \"orderNumber\": '30000023',\r\n  \"orderStatus\": \"string\",\r\n  \"orderTime\": 0,\r\n  \"orderType\": \"string\",\r\n  \"overrunPercentageAmountOrdered\": 0,\r\n  \"overrunPercentageQuantityDelivered\": 0,\r\n  \"overrunPercentageAmountDelivered\": 0,\r\n  \"paymentMethod\": \"string\",\r\n  \"paymentTermsDescription\": \"string\",\r\n  \"paymentTermsId\": \"string\",\r\n  \"pcbInvoicing\": true,\r\n  \"period\": 0,\r\n  \"postTransactionReferece\": 0,\r\n  \"requestedBy\": \"string\",\r\n  \"responsible\": \"string\",\r\n  \"supplierAddressId\": \"string\",\r\n  \"supplierDeliveryAddressId\": \"string\",\r\n  \"supplierDeliveryAddressType\": \"string\",\r\n  \"supplierId\": \"string\",\r\n  \"templateId\": 0,\r\n  \"transactionDate\": \"2020-12-22T10:26:02.390Z\",\r\n  \"transactionNumber\": 0,\r\n  \"transactionType\": \"string\",\r\n  \"treatmentCode\": \"string\",\r\n  \"useGlobalGLAnalysis\": true,\r\n  \"orderBuyerInformation\": {\r\n    \"buyerCompanyID\": \"string\",\r\n    \"notificationMessages\": {}\r\n  },\r\n  \"orderDeliveryInformation\": {\r\n    \"deliveryAddressId\": 0,\r\n    \"deliveryAddressType\": \"string\",\r\n    \"deliveryComment\": \"string\",\r\n    \"deliveryDate\": \"2020-12-22T10:26:02.390Z\",\r\n    \"deliveryDateType\": \"string\",\r\n    \"deliveryDateTypeContent\": \"string\",\r\n    \"deliveryDayTimeLimit\": 0,\r\n    \"deliveryDescription\": \"string\",\r\n    \"deliveryInformation\": \"string\",\r\n    \"deliveryMethod\": \"string\",\r\n    \"deliveryMethodDescription\": \"string\",\r\n    \"deliveryTerms\": \"string\",\r\n    \"deliveryTermsDescription\": \"string\",\r\n    \"manualDeliveryAddress\": \"string\",\r\n    \"manualDeliveryCountryCode\": \"string\",\r\n    \"markingsAddressid\": 0,\r\n    \"markingsDeliveryAttention\": \"string\",\r\n    \"markingsCountryCode\": \"string\",\r\n    \"markingsDeliveryAddress\": \"string\",\r\n    \"markingsid\": \"string\",\r\n    \"markingsTypeDeliveryAddress\": \"string\",\r\n    \"thirdPartyDeliveryAddressId\": \"string\",\r\n    \"thirdPartyTypeDeliveryAddress\": \"string\",\r\n    \"notificationMessages\": {}\r\n  },\r\n  \"orderLineInformation\": [\r\n    {\r\n      \"account\": \"string\",\r\n      \"accountingTemplate\": \"string\",\r\n      \"allocationKey\": 0,\r\n      \"amount\": 0,\r\n      \"amountDelivered\": 0,\r\n      \"attId1\": \"string\",\r\n      \"attId2\": \"string\",\r\n      \"attId3\": \"string\",\r\n      \"attId4\": \"string\",\r\n      \"attId5\": \"string\",\r\n      \"attId6\": \"string\",\r\n      \"attId7\": \"string\",\r\n      \"batchId\": \"string\",\r\n      \"contractId\": \"string\",\r\n      \"currencyAmount\": 0,\r\n      \"currencyCode\": \"string\",\r\n      \"deliveredNumber\": 0,\r\n      \"deliveryDate\": \"2020-12-22T10:26:02.390Z\",\r\n      \"globalTradeItemNumber\": \"string\",\r\n      \"guaranted\": 0,\r\n      \"initialAmount\": 0,\r\n      \"initialDeliveryDate\": \"2020-12-22T10:26:02.390Z\",\r\n      \"initialQuantity\": 0,\r\n      \"invoicedQuantity\": 0,\r\n      \"isBackToBackOrderUsed\": true,\r\n      \"isBonus\": true,\r\n      \"isLineToBePrinted\": true,\r\n      \"isProductKit\": true,\r\n      \"isAmountUse\": true,\r\n      \"ledgerType\": \"string\",\r\n      \"lineDeliveryDate\": \"2020-12-22T10:26:02.390Z\",\r\n      \"lineDimension1\": {\r\n        \"attributeId\": \"string\",\r\n        \"dimValue\": \"string\",\r\n        \"notificationMessages\": {}\r\n      },\r\n      \"lineDimension2\": {\r\n        \"attributeId\": \"string\",\r\n        \"dimValue\": \"string\",\r\n        \"notificationMessages\": {}\r\n      },\r\n      \"lineDimension3\": {\r\n        \"attributeId\": \"string\",\r\n        \"dimValue\": \"string\",\r\n        \"notificationMessages\": {}\r\n      },\r\n      \"lineDimension4\": {\r\n        \"attributeId\": \"string\",\r\n        \"dimValue\": \"string\",\r\n        \"notificationMessages\": {}\r\n      },\r\n      \"lineDimension5\": {\r\n        \"attributeId\": \"string\",\r\n        \"dimValue\": \"string\",\r\n        \"notificationMessages\": {}\r\n      },\r\n      \"lineDimension6\": {\r\n        \"attributeId\": \"string\",\r\n        \"dimValue\": \"string\",\r\n        \"notificationMessages\": {}\r\n      },\r\n      \"lineDimension7\": {\r\n        \"attributeId\": \"string\",\r\n        \"dimValue\": \"string\",\r\n        \"notificationMessages\": {}\r\n      },\r\n      \"lineDiscount\": 0,\r\n      \"lineDiscountAmount\": 0,\r\n      \"lineDiscountPercent\": 0,\r\n      \"lineExchangeRate\": 0,\r\n      \"lineHasBeenPrinted\": true,\r\n      \"lineNumber\": 0,\r\n      \"linePeriod\": 0,\r\n      \"lineStatus\": \"string\",\r\n      \"lineToBePrinted\": true,\r\n      \"location\": \"string\",\r\n      \"orderDate\": \"2020-12-22T10:26:02.390Z\",\r\n      \"orderDiscount\": 0,\r\n      \"orderNumber\": 0,\r\n      \"orderTime\": 0,\r\n      \"orderTimestamp\": 0,\r\n      \"originalQuantity\": 0,\r\n      \"pageBreak\": \"string\",\r\n      \"percentageSplit\": 0,\r\n      \"postedInvoiceAmount\": 0,\r\n      \"productDescription\": \"string\",\r\n      \"productGroup\": \"string\",\r\n      \"productId\": \"string\",\r\n      \"productText\": \"string\",\r\n      \"quantity\": 0,\r\n      \"registeredInvoiceAmount\": 0,\r\n      \"requisition\": 0,\r\n      \"returnedAmount\": 0,\r\n      \"returnedUnits\": 0,\r\n      \"sellerProduct\": \"string\",\r\n      \"sellerProductDescription\": \"string\",\r\n      \"sequenceNumber\": 0,\r\n      \"serialNumber\": \"string\",\r\n      \"supplierId\": \"string\",\r\n      \"taxAmount\": 0,\r\n      \"taxCode\": \"string\",\r\n      \"taxCurrencyAmount\": 0,\r\n      \"taxPercentage\": 0,\r\n      \"taxSystem\": \"string\",\r\n      \"toBeDelivered\": 0,\r\n      \"toBeInvoiced\": 0,\r\n      \"unit\": \"string\",\r\n      \"unitDescription\": \"string\",\r\n      \"unitPrice\": 0,\r\n      \"unspsc\": \"string\",\r\n      \"updatedBy\": \"string\",\r\n      \"lastUpdated\": {\r\n        \"updatedAt\": \"2020-12-22T10:26:02.390Z\",\r\n        \"updatedBy\": \"string\",\r\n        \"notificationMessages\": {}\r\n      },\r\n      \"warehouse\": \"string\",\r\n      \"workflowState\": \"string\",\r\n      \"notificationMessages\": {}\r\n    }\r\n  ],\r\n  \"notificationMessages\": {}\r\n}"
+				},
+				"url": {
+					"raw": "https://ubw.unit4cloud.com/fr_exo_prod_webapi/v1/purchase-orders/30000023",
+					"protocol": "https",
+					"host": [
+						"ubw",
+						"unit4cloud",
+						"com"
+					],
+					"path": [
+						"fr_exo_prod_webapi",
+						"v1",
+						"purchase-orders",
+						"30000023"
+					]
+				},
+				"description": "Requisition."
+			},
+			"response": []
+		}
+	]
+}
