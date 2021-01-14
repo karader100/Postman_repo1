@@ -1,0 +1,388 @@
+{
+	"info": {
+		"_postman_id": "69f95938-9619-4db0-a717-e9b5905a16af",
+		"name": "UNIT41",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get_Company Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Test 1 GET Company details\", () => {\r",
+							"    //parse the response json and test three properties\r",
+							"    const responseJson = pm.response.json();\r",
+							"    //Country code, dimV2Type,municipal,exchangeGainAccount varified.\r",
+							"    pm.expect(responseJson.companyName).to.eql('SC EXPLEO ROMANIA SRL\\t');\r",
+							"    pm.expect(responseJson.countryCode).to.eql('RO');\r",
+							"    pm.expect(responseJson.dimV2Type).to.eq('3');\r",
+							"    pm.expect(responseJson.municipal).to.eq(\"BUCHAR\");\r",
+							"    pm.expect(responseJson.accounting.exchangeGainAccount).to.eq(\"765\");\r",
+							"    });\r",
+							"\r",
+							"    pm.test(\"Test 2 GET Company details\", () => {\r",
+							"    const responseJson = pm.response.json();\r",
+							"    // verified taxOfficeReference,vatRegistrationNumber from response\r",
+							"    pm.expect(responseJson.taxOfficeReference).to.eq(\"SC EXPLEO ROMANIA SR\");\r",
+							"    pm.expect(responseJson.vatRegistrationNumber).to.eq(\"RO5932005\");\r",
+							"    // pm.response.to.have.status(\"OK\"); need to put comment.\r",
+							"    \r",
+							"    });"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"var expectedJsonBody =\r",
+							"{\r",
+							"  \"data\": {\r",
+							"    \"countryCode\": \"RO\",\r",
+							"    \"dimV2Type\": \"3\",\r",
+							"    \"municipal\":\"BUCHAR\",\r",
+							"    \"companyId\":\"RO01\"\r",
+							"      }\r",
+							"}\r",
+							"pm.environment.set(\"address\", JSON.stringify(expectedJsonBody));"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "Unit4@expleo1",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "EXOWS1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"companyId\": \"string\",\r\n  \"companyName\": \"string\",\r\n  \"companyRegistrationNumber\": \"string\",\r\n  \"country\": \"string\",\r\n  \"countryCode\": \"string\",\r\n  \"currentAccountingPeriod\": 0,\r\n  \"dimV2Type\": \"string\",\r\n  \"dimV3Type\": \"string\",\r\n  \"employerId\": \"string\",\r\n  \"languageCode\": \"string\",\r\n  \"maximumTransactionDifference\": 0,\r\n  \"maximumPaymentDifference\": 0,\r\n  \"municipal\": \"string\",\r\n  \"newCompanyId\": \"string\",\r\n  \"overrun\": 0,\r\n  \"payReference\": \"string\",\r\n  \"numberOfPeriods\": 0,\r\n  \"remindReference\": \"string\",\r\n  \"systemSetupCode\": \"string\",\r\n  \"taxOfficeName\": \"string\",\r\n  \"taxOfficeReference\": \"string\",\r\n  \"taxSystem\": \"string\",\r\n  \"vatRegistrationNumber\": \"string\",\r\n  \"multiCompanyInformation\": {\r\n    \"currencyCompanyId\": \"string\",\r\n    \"headOffice\": \"string\",\r\n    \"legalActingCompanyId\": \"string\",\r\n    \"remittanceCompanyId\": \"string\",\r\n    \"notificationMessages\": {}\r\n  },\r\n  \"accounting\": {\r\n    \"exchangeGainAccount\": \"string\",\r\n    \"exchangeLossAccount\": \"string\",\r\n    \"costCapitalisation\": \"string\",\r\n    \"incomeCapitalisationAccount\": \"string\",\r\n    \"reversedPaymentAccount\": \"string\",\r\n    \"undeclaredVatAccount\": \"string\",\r\n    \"amount3BalanceAccount\": \"string\",\r\n    \"amount4BalanceAccount\": \"string\",\r\n    \"balancingAttributeAccount\": \"string\",\r\n    \"invoiceFee\": \"string\",\r\n    \"differenceAccount\": \"string\",\r\n    \"paymentDifferenceGain\": \"string\",\r\n    \"paymentDifferenceLoss\": \"string\",\r\n    \"notificationMessages\": {}\r\n  },\r\n  \"currencyInformation\": {\r\n    \"balanceAttribute\": \"string\",\r\n    \"currencySplit\": true,\r\n    \"currencyCode\": \"string\",\r\n    \"triangulationCurrency\": \"string\",\r\n    \"amount3Currency\": \"string\",\r\n    \"amount4Currency\": \"string\",\r\n    \"currencyType\": \"string\",\r\n    \"amount3DifferenceAccount\": \"string\",\r\n    \"amount4DifferenceAccount\": \"string\",\r\n    \"amount3MaxTransactionDifference\": 0,\r\n    \"amount4MaxTransactionDifference\": 0,\r\n    \"notificationMessages\": {}\r\n  },\r\n  \"vatInformation\": {\r\n    \"undeclVatForApNotes\": \"string\",\r\n    \"undeclVatForArNotes\": \"string\",\r\n    \"undeclVatForAp\": \"string\",\r\n    \"undeclVatForAr\": \"string\",\r\n    \"reverseVatWhenDiscountAp\": true,\r\n    \"reverseVatWhenDiscountAr\": true,\r\n    \"notificationMessages\": {}\r\n  },\r\n  \"lastUpdated\": {\r\n    \"updatedAt\": \"2020-12-07T14:09:40.974Z\",\r\n    \"updatedBy\": \"string\",\r\n    \"notificationMessages\": {}\r\n  },\r\n  \"contactPoints\": [\r\n    {\r\n      \"additionalContactInfo\": {\r\n        \"contactPerson\": \"string\",\r\n        \"contactPosition\": \"string\",\r\n        \"eMail\": \"string\",\r\n        \"eMailCc\": \"string\",\r\n        \"gtin\": \"string\",\r\n        \"url\": \"string\",\r\n        \"notificationMessages\": {}\r\n      },\r\n      \"address\": {\r\n        \"countryCode\": \"string\",\r\n        \"place\": \"string\",\r\n        \"postcode\": \"string\",\r\n        \"province\": \"string\",\r\n        \"streetAddress\": \"string\",\r\n        \"notificationMessages\": {}\r\n      },\r\n      \"contactPointType\": \"string\",\r\n      \"lastUpdated\": {\r\n        \"updatedAt\": \"2020-12-07T14:09:40.974Z\",\r\n        \"updatedBy\": \"string\",\r\n        \"notificationMessages\": {}\r\n      },\r\n      \"phoneNumbers\": {\r\n        \"telephone1\": \"string\",\r\n        \"telephone2\": \"string\",\r\n        \"telephone3\": \"string\",\r\n        \"telephone4\": \"string\",\r\n        \"telephone5\": \"string\",\r\n        \"telephone6\": \"string\",\r\n        \"telephone7\": \"string\",\r\n        \"notificationMessages\": {}\r\n      },\r\n      \"sortOrder\": 0,\r\n      \"notificationMessages\": {}\r\n    }\r\n  ],\r\n  \"customFieldGroups\": {},\r\n  \"relatedValues\": [\r\n    {\r\n      \"unitValue\": 0,\r\n      \"relationGroup\": \"string\",\r\n      \"relationId\": \"string\",\r\n      \"relationName\": \"string\",\r\n      \"relatedValue\": \"string\",\r\n      \"percentage\": 0,\r\n      \"dateFrom\": \"2020-12-07T14:09:40.975Z\",\r\n      \"dateTo\": \"2020-12-07T14:09:40.975Z\",\r\n      \"notificationMessages\": {}\r\n    }\r\n  ],\r\n  \"notificationMessages\": {}\r\n}",
+					"options": {
+						"raw": {
+							"language": "xml"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://ubw-preview.unit4cloud.com/fr_exo_prev_webapi/v1/companies/RO01",
+					"protocol": "https",
+					"host": [
+						"ubw-preview",
+						"unit4cloud",
+						"com"
+					],
+					"path": [
+						"fr_exo_prev_webapi",
+						"v1",
+						"companies",
+						"RO01"
+					]
+				},
+				"description": "supplier get"
+			},
+			"response": []
+		},
+		{
+			"name": "Currency Codes Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json();\r",
+							"var companyId = data[0].companyId; //data in array\r",
+							"var currencyCodenew=data[0].currencyCode;\r",
+							"var companyIdnew = 'ECM';\r",
+							"var currencyUnit=data[0].currencyUnit;\r",
+							"\r",
+							" pm.test(\"Test 1 GET currency codes details\", function(){\r",
+							"     //verify companyid and currency code,currencyUnit\r",
+							"    pm.expect(companyIdnew).to.be.eql(\"ECM\");\r",
+							"    pm.expect(currencyCodenew).to.eql(\"GBP\");\r",
+							"    pm.expect(currencyUnit).to.eql(1);\r",
+							"\r",
+							"});\r",
+							"\r",
+							"pm.environment.set(\"URL\", \"https://ubw-preview.unit4cloud.com/fr_exo_prev_webapi/v1/objects/currency-codes\");\r",
+							"pm.environment.get(\"URL\");\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "EXOWS1",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "Unit4@expleo1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"currency\": \"string\",\r\n  \"limit\": 0,\r\n  \"description\": \"string\",\r\n  \"flag\": true,\r\n  \"bank\": \"string\",\r\n  \"company\": \"string\",\r\n  \"currencyUnit\": 0,\r\n  \"updated\": \"2021-01-13T08:15:04.682Z\",\r\n  \"numberOfDecimals\": 0,\r\n  \"sequenceNumber\": 0,\r\n  \"updatedBy\": \"string\",\r\n  \"notificationMessages\": {}\r\n}\r\n\r\n"
+				},
+				"url": {
+					"raw": "https://ubw-preview.unit4cloud.com/fr_exo_prev_webapi/v1/objects/currency-codes",
+					"protocol": "https",
+					"host": [
+						"ubw-preview",
+						"unit4cloud",
+						"com"
+					],
+					"path": [
+						"fr_exo_prev_webapi",
+						"v1",
+						"objects",
+						"currency-codes"
+					]
+				},
+				"description": "Currency Codes"
+			},
+			"response": []
+		},
+		{
+			"name": "Supplier Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Test 1 GET supplier details\", () => {\r",
+							"    //parse the response json and test three properties\r",
+							"    const responseJson = pm.response.json();\r",
+							"    //Country code, dimV2Type,municipal,exchangeGainAccount varified.\r",
+							"    pm.expect(responseJson.supplierName).to.eql('ARANGUENA, SEGUNDO');\r",
+							"    pm.expect(responseJson.bankAccount).to.eql('08432589100');\r",
+							"    pm.expect(responseJson.companyId).to.eq('ECM');\r",
+							"    pm.expect(responseJson.countryCode).to.eq('FR');\r",
+							"    pm.expect(responseJson.externalReference).to.eql('00001022');\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "EXOWS2",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "Unit4@expleo1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"bankAccount\": \"string\",\r\n  \"companyId\": \"string\",\r\n  \"companyRegistrationNumber\": \"string\",\r\n  \"countryCode\": \"string\",\r\n  \"customerId\": \"string\",\r\n  \"expiryDate\": \"2021-01-08T10:39:17.518Z\",\r\n  \"externalReference\": \"string\",\r\n  \"headOffice\": \"string\",\r\n  \"languageCode\": \"string\",\r\n  \"priority\": 0,\r\n  \"aliasName\": \"string\",\r\n  \"status\": \"string\",\r\n  \"isSundrySupplier\": true,\r\n  \"supplierGroupId\": \"string\",\r\n  \"supplierId\": \"string\",\r\n  \"supplierName\": \"string\",\r\n  \"swift\": \"string\",\r\n  \"note\": \"string\",\r\n  \"vatRegistrationNumber\": \"string\",\r\n  \"workflowState\": \"string\",\r\n  \"lastUpdated\": {\r\n    \"updatedAt\": \"2021-01-08T10:39:17.518Z\",\r\n    \"updatedBy\": \"string\",\r\n    \"notificationMessages\": {}\r\n  },\r\n  \"invoice\": {\r\n    \"calculatePayDiscountOnTax\": true,\r\n    \"creditLimit\": 0,\r\n    \"currencyCode\": \"string\",\r\n    \"discountCode\": \"string\",\r\n    \"hasFixedCurrency\": true,\r\n    \"hasFixedPaymentTerms\": true,\r\n    \"hasFixedPaymethod\": true,\r\n    \"hasFixedTaxCode\": true,\r\n    \"hasFixedTaxSystem\": true,\r\n    \"message\": \"string\",\r\n    \"paymentTermsId\": \"string\",\r\n    \"paymentMethod\": \"string\",\r\n    \"taxCode\": \"string\",\r\n    \"taxFilingRequirement\": \"string\",\r\n    \"taxSystem\": \"string\",\r\n    \"notificationMessages\": {}\r\n  },\r\n  \"payment\": {\r\n    \"cashDelay\": 0,\r\n    \"bankClearingCode\": \"string\",\r\n    \"hasFixedPaymentRecipient\": true,\r\n    \"iban\": \"string\",\r\n    \"otherAccount\": \"string\",\r\n    \"paymentDelay\": 0,\r\n    \"payRecipient\": \"string\",\r\n    \"postalAccount\": \"string\",\r\n    \"notificationMessages\": {}\r\n  },\r\n  \"contactPoints\": [\r\n    {\r\n      \"additionalContactInfo\": {\r\n        \"contactPerson\": \"string\",\r\n        \"contactPosition\": \"string\",\r\n        \"eMail\": \"string\",\r\n        \"eMailCc\": \"string\",\r\n        \"gtin\": \"string\",\r\n        \"url\": \"string\",\r\n        \"notificationMessages\": {}\r\n      },\r\n      \"address\": {\r\n        \"countryCode\": \"string\",\r\n        \"place\": \"string\",\r\n        \"postcode\": \"string\",\r\n        \"province\": \"string\",\r\n        \"streetAddress\": \"string\",\r\n        \"notificationMessages\": {}\r\n      },\r\n      \"contactPointType\": \"string\",\r\n      \"lastUpdated\": {\r\n        \"updatedAt\": \"2021-01-08T10:39:17.518Z\",\r\n        \"updatedBy\": \"string\",\r\n        \"notificationMessages\": {}\r\n      },\r\n      \"phoneNumbers\": {\r\n        \"telephone1\": \"string\",\r\n        \"telephone2\": \"string\",\r\n        \"telephone3\": \"string\",\r\n        \"telephone4\": \"string\",\r\n        \"telephone5\": \"string\",\r\n        \"telephone6\": \"string\",\r\n        \"telephone7\": \"string\",\r\n        \"notificationMessages\": {}\r\n      },\r\n      \"sortOrder\": 0,\r\n      \"notificationMessages\": {}\r\n    }\r\n  ],\r\n  \"customFieldGroups\": {},\r\n  \"relatedValues\": [\r\n    {\r\n      \"unitValue\": 0,\r\n      \"relationGroup\": \"string\",\r\n      \"relationId\": \"string\",\r\n      \"relationName\": \"string\",\r\n      \"relatedValue\": \"string\",\r\n      \"percentage\": 0,\r\n      \"dateFrom\": \"2021-01-08T10:39:17.518Z\",\r\n      \"dateTo\": \"2021-01-08T10:39:17.518Z\",\r\n      \"notificationMessages\": {}\r\n    }\r\n  ],\r\n  \"notificationMessages\": {}\r\n}"
+				},
+				"url": {
+					"raw": "https://ubw-preview.unit4cloud.com/fr_exo_prev_webapi/v1/suppliers/00001022",
+					"protocol": "https",
+					"host": [
+						"ubw-preview",
+						"unit4cloud",
+						"com"
+					],
+					"path": [
+						"fr_exo_prev_webapi",
+						"v1",
+						"suppliers",
+						"00001022"
+					]
+				},
+				"description": "Requisition."
+			},
+			"response": []
+		},
+		{
+			"name": "Attribute_value Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var data = pm.response.json();\r",
+							"var attributeId = data[0].attributeId; //data is array\r",
+							"var attributeName1=data[1].attributeName;\r",
+							"var attributeValue1 = data[2].attributeValue;\r",
+							"\r",
+							"// attributeId,attribute value verified in response\r",
+							"pm.test(\"Test 1 check attributeValue\", function(){\r",
+							"    pm.expect(attributeId).to.be.eql(\"C47\");\r",
+							"    pm.expect(attributeValue1).to.be.eql(\"GESTION\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "EXOWS1",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "Unit4@expleo1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  {\r\n    \"attributeId\": \"string\",\r\n    \"attributeName\": \"string\",\r\n    \"attributeValue\": \"string\",\r\n    \"companyId\": \"string\",\r\n    \"customValue\": 0,\r\n    \"description\": \"string\",\r\n    \"owner\": \"string\",\r\n    \"ownerAttributeId\": \"string\",\r\n    \"ownerAttributeName\": \"string\",\r\n    \"periodFrom\": 0,\r\n    \"periodTo\": 0,\r\n    \"status\": \"string\",\r\n    \"lastUpdated\": {\r\n      \"updatedAt\": \"2021-01-04T07:18:24.964Z\",\r\n      \"updatedBy\": \"string\"\r\n    }\r\n  }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://ubw-preview.unit4cloud.com/fr_exo_prev_webapi/v1/objects/attribute-values",
+					"protocol": "https",
+					"host": [
+						"ubw-preview",
+						"unit4cloud",
+						"com"
+					],
+					"path": [
+						"fr_exo_prev_webapi",
+						"v1",
+						"objects",
+						"attribute-values"
+					]
+				},
+				"description": "attribute value"
+			},
+			"response": []
+		},
+		{
+			"name": "Attributes Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// All response in Array\r",
+							"var data = pm.response.json();\r",
+							"var attributeId = data[0].attributeId; //data is array\r",
+							"var attributeName1=data[1].attributeName;\r",
+							"var attributeValue1 = data[2].attributeValue;\r",
+							"var companyId1 = data[2].companyId;\r",
+							"\r",
+							"pm.test(\"Test 1 GET Attributes\", function(){\r",
+							"    // Attribute id, Attribute name,Company id verified from response.\r",
+							"    pm.expect(attributeId).to.be.eql(\"ZB05\");\r",
+							"    pm.expect(attributeName1).to.be.equal(\"BS5\");\r",
+							"    pm.expect(companyId1).to.be.eql(\"ECM\");\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "username",
+							"value": "EXOWS1",
+							"type": "string"
+						},
+						{
+							"key": "password",
+							"value": "Unit4@expleo1",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"attributeId\": \"string\",\r\n    \"attributeName\": \"string\",\r\n    \"companyId\": \"string\",\r\n    \"dataLength\": 0,\r\n    \"dataType\": \"string\",\r\n    \"description\": \"string\",\r\n    \"dimensionPosition\": \"string\",\r\n    \"hasDataControl\": true,\r\n    \"hasDateRangeOnRelatedValues\": true,\r\n    \"hasPeriodRangeControl\": true,\r\n    \"isCachable\": true,\r\n    \"isEnabledForLinkingContactPoints\": true,\r\n    \"isEnabledForWorkflow\": true,\r\n    \"isFormMasterFile\": true,\r\n    \"isMasterFileAttribute\": true,\r\n    \"isObject\": true,\r\n    \"ownerAttributeId\": \"string\",\r\n    \"ownerAttributeName\": \"string\",\r\n    \"status\": \"string\",\r\n    \"typeOfMaintenance\": \"string\",\r\n    \"typeOfUnit\": \"string\",\r\n    \"updatedAt\": \"2020-12-11T14:04:15.840Z\",\r\n    \"updatedBy\": \"string\"\r\n}\r\n"
+				},
+				"url": {
+					"raw": "https://ubw-preview.unit4cloud.com/fr_exo_prev_webapi/v1/objects/attributes",
+					"protocol": "https",
+					"host": [
+						"ubw-preview",
+						"unit4cloud",
+						"com"
+					],
+					"path": [
+						"fr_exo_prev_webapi",
+						"v1",
+						"objects",
+						"attributes"
+					]
+				},
+				"description": "Attributes"
+			},
+			"response": []
+		}
+	]
+}
